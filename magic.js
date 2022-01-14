@@ -1,18 +1,35 @@
+const DEFAULT_COLOR = "33333"
+const DEFAULT_SIZE = 16;
+
+
 const body = document.querySelector("body");
 const gridCont = document.querySelector(".grid-container");
 
-function makeGrid() {
-  // columns
-  for (let c = 0; c < 16; c++) {
+
+function makeGrid(size) {
+  for (let c = 0; c < size * size; c++) {
     const box = document.createElement("div");
-    box.classList.add("grid-square");
     gridCont.appendChild(box);
-    for (let r = 0; r < 16; r++) {
-      const cell = document.createElement("div");
-      cell.classList.add("grid-square");
-      gridCont.appendChild(cell);
-    }
+
+    gridCont.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+    gridCont.style.gridTemplateRows = `repeat(${size}, 1fr)`;
   }
+  let gridCells = gridCont.querySelectorAll("div");
+  gridCells.forEach(cell => {
+    cell.addEventListener("mouseover", (e) => {
+      e.target.style.backgroundColor = "black";
+    });
+  })
 }
 
-makeGrid();
+function paint(cell) {
+  cell.style.backgroundColor = "black";
+}
+
+function resetCanvas() {
+  allCells.classList.remove("painted");
+}
+
+// Main
+makeGrid(DEFAULT_SIZE);
+//gridCont.forEach(cell => 
